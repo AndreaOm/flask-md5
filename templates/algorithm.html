@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <ul class="nav nav-pills" role="tablist">
+        <li role="presentation"><a href="/">单个加密</a></li>
+        <li role="presentation"><a href="/md5s">批量加密</a></li>
+        <li role="presentation" class="active"><a href="/algorithm">MD5算法原理</a></li>
+        <li role="presentation"><a href="/source">源代码</a></li>
+      </ul>
+      <hr>
+      <form class="form-vertical">
+        <fieldset>
+          <legend><strong>简介</strong></legend>
+          <ul>
+            <li>MD5的全称为Message-Digest Algorithm 5，即消息摘要算法第五版</li>
+            <li>是当前计算机领域用于确保信息传输完整一致而广泛使用的散列算法之一</li>
+            <li>MD5算法的功能是将数据运算变为另一固定长度值，是散列算法的基础原理</li>
+            <li>MD5的前身有MD2、MD3和MD4</li>
+            <img width="600px" src="{{ url_for("static", filename="img/111.jpg") }}" alt="">
+          </ul>
+        </fieldset>
+
+        <fieldset>
+          <legend><strong>原理</strong></legend>
+          <p>MD5算法的原理主要分为以下几个步骤：</p>
+            <ol>
+              <li>填充：首先将输入信息的长度(bit)进行填充，使得对512求余的结果等于448。填充的方法是填充一个1和n个0</li>
+              <li>记录信息长度：用64位来存储填充前信息长度。这64位加在第一步结果的后面，这样信息长度就变为N<em>512+448+64=(N+1)</em>512位</li>
+              <li>装入标准的幻数：标准的幻数是(A=(01234567)16，B=(89ABCDEF)16，C=(FEDCBA98)16，D=(76543210)16)。如果在程序中定义应该是(A=0X67452301L，B=0XEFCDAB89L，C=0X98BADCFEL，D=0X10325476L)</li>
+              <li>四轮循环运算：循环的次数是分组的个数(N+1)</li>
+              <img src="{{ url_for("static", filename="img/b48cf19451d43497bed46d2dde5652df.png") }}" alt="">
+            </ol>
+
+        </fieldset>
+
+        <fieldset>
+          <legend><strong>用途</strong></legend>
+
+            <p>MD5算法的用途主要分为以下几类：</p>
+              <ol>
+              <li><strong> 防止被篡改 </strong> 比如我提供文件下载，为了防止不法分子在安装程序中添加木马，我可以在网站上公布由安装文件得到的MD5输出结果</li>
+              <li><strong>防止直接看到明文</strong> 现在很多网站在数据库存储用户的密码的时候都是存储用户密码的MD5值。这样就算不法分子得到数据库的用户密码的MD5值，也无法知道用户的密码</li>
+              <li><strong>防止抵赖(数字签名)</strong> 例如A写了一个文件，认证机构对此文件用MD5算法产生摘要信息并做好记录。这样可以防止出现以后A不承认此事而带来的麻烦</li>
+            </ol>
+
+        </fieldset>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

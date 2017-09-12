@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-7 col-lg-6"  style="word-break: break-all;word-wrap: break-word;">
+      <ul class="nav nav-pills" role="tablist">
+        <li role="presentation" class="active"><a href="/">单个加密</a></li>
+        <li role="presentation"><a href="/md5s">批量加密</a></li>
+        <li role="presentation"><a href="/algorithm">MD5算法原理</a></li>
+        <li role="presentation"><a href="/source">源代码</a></li>
+      </ul>
+      <hr>
+      <form action="" class="form-vertical" method="get">
+
+        <fieldset>
+          <legend><strong>第一步</strong> | 输入需要进行MD5的字符串</legend>
+          <div class="form-group">
+
+            <input type="text" class="form-control" id="input-text" name="md5">
+
+          </div>
+          <div class="form-group">
+            <button class="btn btn-default ole" type="submit" data-toggle="tooltip" data-placement="left" data-original-title="请填入上方的文本框中">提交</button> 
+            <!--<button class="btn btn-default ole" type="submit" data-toggle="tooltip" data-placement="right" data-original-title="清空所有内容"><a href="/">重置</a></button>-->
+          </div>
+        </fieldset>
+        {% if md5 %}
+        <fieldset>
+          <legend><strong>第二步</strong> | 字符串16进制和2进制</legend>
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title"><strong>16进制</strong></h3>
+            </div>
+            <div class="panel-body">
+              {{ hex_str }}
+            </div>
+          </div>
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title"><strong>2进制</strong></h3>
+            </div>
+            <div class="panel-body">
+              {{ bin_str }}
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend><strong>第三步</strong> | 消息进行填充</legend>
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title"><strong>填充后 | 输出16进制</strong></h3>
+            </div>
+            <div class="panel-body">
+              {{ final_hex }}
+            </div>
+          </div>
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title"><strong>填充后 | 输出2进制</strong></h3>
+            </div>
+            <div class="panel-body">
+              {{ final }}
+            </div>
+          </div>
+
+        </fieldset>
+
+
+        <fieldset>
+            <legend><strong>第四步</strong> | 输出加密后的字符串</legend>
+            <div class="panel panel-success">
+              <div class="panel-heading">
+                <h3 class="panel-title"><strong>明文</strong></h3>
+              </div>
+              <div class="panel-body">
+                {{ x }}
+              </div>
+            </div>
+            <div class="panel panel-success">
+              <div class="panel-heading">
+                <h3 class="panel-title"><strong>MD5</strong></h3>
+              </div>
+              <div class="panel-body">
+                {{ md5 }}
+              </div>
+            </div>
+
+        </fieldset>
+        {% else %}
+        {% endif %}
+
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

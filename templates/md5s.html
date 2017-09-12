@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-7 col-lg-6">
+      <ul class="nav nav-pills" role="tablist">
+        <li role="presentation"><a href="/">单个加密</a></li>
+        <li role="presentation" class="active"><a href="/md5s">批量加密</a></li>
+        <li role="presentation"><a href="/algorithm">MD5算法原理</a></li>
+        <li role="presentation"><a href="/source">源代码</a></li>
+      </ul>
+      <hr>
+      <form class="form-vertical">
+        <fieldset>
+          <legend><strong>第一步</strong> | 输入需要进行批量MD5的字符串</legend>
+          <div class="form-group">
+            <textarea type="text" class="form-control" id="input-text" placeholder="" style="height:300px;" name="md5s"></textarea>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-default ole" type="submit" data-toggle="tooltip" data-placement="left" data-original-title="每条待加密字符串须换行">提交</button>
+            <!--<button class="btn btn-default ole" type="submit" data-toggle="tooltip" data-placement="right" data-original-title="清空所有内容"><a href="/md5s">重置</a></button>-->
+          </div>
+        </fieldset>
+        {% if md5s %}
+
+              <fieldset>
+                  <legend><strong>第二步</strong> | 输出加密后的字符串</legend>
+                  {% for v in md5s %}
+
+                    <div class="alert alert-success" role="alert"  data-toggle="popover" data-placement="right" data-original-title="明文" data-content="<code>{{ v.split(':')[0] }}</code>">
+                        {{ v.split(':')[1] }}
+                    </div>
+
+                  {% endfor %}
+              </fieldset>
+        {% else %}
+        {% endif %}
+
+
+
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
