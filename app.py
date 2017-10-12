@@ -6,9 +6,9 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import Required
 from math import sin
 
-#定义MD5()类
+
 class MD5(object):
-    #轮换次数
+
     rotate_amounts = [7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22,
                       5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20,
                       4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23,
@@ -16,7 +16,7 @@ class MD5(object):
 
     constants = [int(abs(2 ** 32 * sin(i + 1))) & 0xffffffff for i in range(64)]
 
-    #定义四轮变换非线性函数  F G H K
+
     _functions = {'f': lambda b, c, d: (b & c) | (~b & d),
                   'g': lambda b, c, d: (d & b) | (~d & c),
                   'h': lambda b, c, d: b ^ c ^ d,
@@ -29,7 +29,6 @@ class MD5(object):
                        lambda i: (3 * i + 5) % 16,
                        lambda i: (7 * i) % 16)
 
-    #初始化MD5参数 4个数 A:01 23 45 67 B:89 ab cd ef C:fe dc ba 98 D:76 54 32 10
     def __init__(self, order=('f', 'g', 'h', 'k'), init_values=(0x67452301, 0xefcdab89, 0x98badcfe, 0x10325476)):
         self.init_values = list(init_values)
         self.functions = []
@@ -44,15 +43,15 @@ class MD5(object):
         return ((x << amount) | (x >> (32 - amount))) & 0xffffffff
 
     def md5_digest(self, message, encoding='UTF-8'):
-        #填充
+
         message = bytearray(message, encoding=encoding)
         orig_bits_len = (8 * len(message)) & 0xffffffffffffffff
-        #填充 补 1
+
         message.append(0x80)
-        #填充 补 0 到512*K+448
+
         while len(message) % 64 != 56:
             message.append(0)
-        #填充 附加数据长度
+
         message += orig_bits_len.to_bytes(8, byteorder='little')
 
         registers = self.init_values[:]
@@ -82,21 +81,20 @@ class MD5(object):
     def md5(self, message, encoding='UTF-8'):
         return self.md5_to_hex(self.md5_digest(message, encoding))
 
-#字符串转16进制
 def str_to_hex(message):
     ascii = map(ord, message)
     he = ""
     for x in ascii:
         he = he +"\\"+ str(hex(x))
     return he
-#字符串转2进制
+
 def str_to_bin(message):
     ascii = map(ord, message)
     bi = ""
     for x in ascii:
         bi = bi + str(bin(x))[2::].zfill(8)
     return bi
-#字符串填充_bin
+
 def str_append_bin(message):
     final = ""
     str_len = len(message)
@@ -113,7 +111,7 @@ def str_append_bin(message):
 def x_cut(string,width):
     return [string[x:x+width] for x in range(0,len(string),width)]
 
-#字符串填充-16进制
+
 def str_append_hex(message):
     x = x_cut(str_append_bin(message),8)
     final_hex = ""
